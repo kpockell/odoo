@@ -1,0 +1,315 @@
+/**
+ * Dark mode overrides for specific modules
+ * This file contains specific overrides for modules that need special handling in dark mode
+ */
+
+.o-theme-dark {
+    // Sales Dashboard
+    .o_sale_dashboard {
+        background-color: var(--o-dark-bg-200);
+        
+        .o_dashboard_action {
+            background-color: var(--o-dark-bg-300);
+            color: var(--text-color);
+            border-color: var(--border-color);
+            
+            &:hover {
+                background-color: var(--o-dark-bg-400);
+            }
+        }
+        
+        .o_dashboard_graph {
+            background-color: var(--o-dark-bg-300);
+        }
+    }
+    
+    // Calendar module
+    .o_calendar_widget {
+        background-color: var(--o-dark-bg-300);
+        color: var(--text-color);
+        
+        .fc-view {
+            background-color: var(--o-dark-bg-300);
+            
+            .fc-event {
+                background-color: var(--o-dark-accent);
+                border-color: var(--o-dark-accent-dark);
+                color: white;
+            }
+            
+            .fc-today {
+                background-color: var(--o-dark-bg-400);
+            }
+        }
+    }
+    
+    // Mail/Discuss
+    .o_Discuss {
+        background-color: var(--o-dark-bg-200);
+        
+        .o_ThreadView {
+            background-color: var(--o-dark-bg-300);
+            color: var(--text-color);
+            border-color: var(--border-color);
+            
+            .o_Message {
+                border-bottom-color: var(--border-color);
+            }
+        }
+        
+        .o_DiscussSidebar {
+            background-color: var(--o-dark-bg-200);
+            border-right-color: var(--border-color);
+            
+            .o_DiscussSidebar_item {
+                &:hover {
+                    background-color: var(--o-dark-bg-400);
+                }
+                
+                &.o-active {
+                    background-color: var(--o-dark-accent);
+                    color: white;
+                }
+            }
+        }
+    }
+    
+    // Website builder
+    .o_web_studio {
+        background-color: var(--o-dark-bg-200);
+        
+        .o_web_studio_sidebar {
+            background-color: var(--o-dark-bg-300);
+            border-color: var(--border-color);
+        }
+        
+        .o_web_studio_view_editor {
+            background-color: var(--o-dark-bg-100);
+        }
+    }
+    
+    // Point of Sale
+    .pos {
+        background-color: var(--o-dark-bg-100);
+        color: var(--text-color);
+        
+        .pos-topheader {
+            background-color: var(--o-dark-bg-200);
+            border-color: var(--border-color);
+        }
+        
+        .pos-content {
+            background-color: var(--o-dark-bg-300);
+        }
+        
+        .product {
+            background-color: var(--o-dark-bg-300);
+            border-color: var(--border-color);
+            
+            &:hover {
+                background-color: var(--o-dark-bg-400);
+            }
+        }
+    }
+    
+    // Accounting
+    .o_account_reports_page {
+        background-color: var(--o-dark-bg-300);
+        color: var(--text-color);
+        
+        .o_account_reports_header {
+            background-color: var(--o-dark-bg-200);
+        }
+        
+        .o_account_reports_table {
+            background-color: transparent;
+            
+            .o_account_report_line {
+                color: var(--text-color);
+                border-bottom-color: var(--border-color);
+                
+                &:hover {
+                    background-color: var(--o-dark-bg-400);
+                }
+            }
+        }
+    }
+    
+    // Inventory
+    .o_stock_reports_page {
+        background-color: var(--o-dark-bg-300);
+        
+        .o_stock_reports_table {
+            color: var(--text-color);
+        }
+    }
+    
+    // CRM Pipeline
+    .o_pipeline {
+        background-color: var(--o-dark-bg-200);
+        
+        .o_kanban_group {
+            background-color: var(--o-dark-bg-200);
+            
+            .o_kanban_header {
+                background-color: var(--o-dark-bg-200);
+            }
+        }
+        
+        .o_kanban_record {
+            background-color: var(--o-dark-bg-300);
+        }
+    }
+    
+    // Survey module
+    .o_survey_form {
+        background-color: var(--o-dark-bg-300);
+        color: var(--text-color);
+        border-color: var(--border-color);
+        
+        .o_survey_question {
+            background-color: var(--o-dark-bg-300);
+            border-color: var(--border-color);
+            
+            .o_survey_question_title {
+                color: var(--o-dark-text-primary);
+            }
+        }
+    }
+    
+    // Code editor (for technical settings)
+    .ace_editor {
+        background-color: var(--o-dark-bg-400) !important;
+        color: var(--o-dark-text-primary) !important;
+        
+        .ace_gutter {
+            background-color: var(--o-dark-bg-300) !important;
+            color: var(--o-dark-text-muted) !important;
+        }
+        
+        .ace_marker-layer .ace_selection {
+            background-color: rgba(80, 80, 80, 0.4) !important;
+        }
+        
+        .ace_cursor {
+            color: var(--o-dark-text-primary) !important;
+        }
+    }
+    
+    // Dashboard widgets and charts
+    .o_graph_renderer {
+        background-color: var(--o-dark-bg-300);
+        
+        canvas {
+            filter: invert(0.1);
+        }
+    }
+    
+    // Pivot table
+    .o_pivot {
+        background-color: var(--o-dark-bg-300);
+        color: var(--text-color);
+        
+        table {
+            th {
+                background-color: var(--o-dark-bg-200);
+                color: var(--o-dark-text-secondary);
+                border-color: var(--border-color);
+            }
+            
+            td {
+                border-color: var(--border-color);
+                
+                &.o_pivot_cell_value {
+                    color: var(--text-color);
+                }
+            }
+        }
+    }
+    
+    // Settings app
+    .o_setting_container {
+        .settings {
+            background-color: var(--o-dark-bg-200);
+            
+            .app_settings_block {
+                background-color: var(--o-dark-bg-300);
+                color: var(--text-color);
+                border-color: var(--border-color);
+                
+                h2 {
+                    color: var(--o-dark-text-primary);
+                    border-bottom-color: var(--border-color);
+                }
+                
+                .o_setting_left_pane {
+                    color: var(--o-dark-accent);
+                }
+            }
+            
+            .settings_tab {
+                background-color: var(--o-dark-bg-200);
+                border-color: var(--border-color);
+                
+                .selected {
+                    background-color: var(--o-dark-bg-300);
+                    color: var(--text-color);
+                    box-shadow: inset 3px 0 0 var(--o-dark-accent);
+                }
+                
+                .tab {
+                    color: var(--o-dark-text-secondary);
+                    
+                    &:hover:not(.selected) {
+                        color: var(--o-dark-text-primary);
+                        background-color: var(--o-dark-bg-400);
+                    }
+                }
+            }
+        }
+    }
+    
+    // Text editor (for HTML fields)
+    .note-editor {
+        border-color: var(--border-color);
+        
+        .note-toolbar {
+            background-color: var(--o-dark-bg-200);
+            border-bottom-color: var(--border-color);
+            
+            .note-btn {
+                background-color: var(--o-dark-bg-400);
+                color: var(--o-dark-text-primary);
+                border-color: var(--o-dark-border-100);
+                
+                &:hover {
+                    background-color: var(--o-dark-bg-500);
+                    color: var(--o-dark-text-primary);
+                }
+            }
+            
+            .dropdown-menu {
+                background-color: var(--o-dark-bg-300);
+                color: var(--text-color);
+                border-color: var(--border-color);
+                
+                .dropdown-item {
+                    color: var(--text-color);
+                    
+                    &:hover {
+                        background-color: var(--o-dark-bg-400);
+                    }
+                }
+            }
+        }
+        
+        .note-editing-area {
+            background-color: var(--o-dark-bg-300);
+            
+            .note-editable {
+                background-color: var(--o-dark-bg-300);
+                color: var(--text-color);
+            }
+        }
+    }
+}

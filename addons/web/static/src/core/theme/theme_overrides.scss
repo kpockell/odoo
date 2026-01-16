@@ -1,0 +1,34 @@
+/**
+ * Dark Mode Variables Override
+ * This file ensures dark mode CSS variables have the highest specificity
+ */
+
+html.o-theme-dark {
+    /* Kanban specific variables with increased specificity */
+    --Kanban-background: var(--o-dark-bg-200) !important;
+    --KanbanGroup-background: var(--o-dark-bg-200) !important;
+    --KanbanRecord-background: var(--o-dark-bg-300) !important;
+}
+
+/* Direct styling with high specificity selectors */
+html.o-theme-dark .o_kanban_view {
+    background-color: var(--o-dark-bg-200) !important;
+}
+
+html.o-theme-dark .o_kanban_renderer {
+    background-color: var(--o-dark-bg-200) !important;
+}
+
+html.o-theme-dark .o_kanban_group {
+    background-color: var(--o-dark-bg-200) !important;
+}
+
+html.o-theme-dark .o_kanban_record:not(.o_legacy_kanban_record) {
+    background-color: var(--o-dark-bg-300) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Fix for --view-background-color which might be affecting kanban backgrounds */
+.o-theme-dark {
+    --o-view-background-color: var(--o-dark-bg-300) !important;
+}

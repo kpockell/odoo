@@ -1,0 +1,28 @@
+.o_theme_toggle {
+    cursor: pointer;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    i {
+        font-size: 18px;
+    }
+    
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        
+        .o-theme-dark & {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    }
+    
+    // Animation for smooth transition
+    i {
+        transition: transform 0.3s ease;
+    }
+    
+    &:active i {
+        transform: rotate(180deg);
+    }
+}

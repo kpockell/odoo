@@ -1,0 +1,73 @@
+// Theme transition CSS for smooth dark mode switching
+:root {
+    --theme-transition-duration: 400ms;
+    --theme-transition-timing: cubic-bezier(0.4, 0, 0.2, 1); // Material Design easing
+    --theme-transition-property-base: background-color, color, border-color, box-shadow, opacity, filter;
+    --theme-transition-property-transform: transform, scale, translate;
+}
+
+// Apply transitions to elements that change in dark mode
+html {
+    // Basic transition for the HTML element itself
+    transition: 
+        background-color var(--theme-transition-duration) var(--theme-transition-timing),
+        color var(--theme-transition-duration) var(--theme-transition-timing);
+                
+    // Generic transitions for all elements
+    *, *::before, *::after {
+        transition-property: var(--theme-transition-property-base);
+        transition-duration: var(--theme-transition-duration);
+        transition-timing-function: var(--theme-transition-timing);
+    }
+    
+    // Specifically target certain elements with more refined transitions
+    
+    // Content areas and containers
+    .o_content, .o_form_view, .o_list_view, .o_kanban_view, 
+    .modal-content, .o_Dialog_content, .dropdown-menu {
+        transition: 
+            background-color var(--theme-transition-duration) var(--theme-transition-timing),
+            color var(--theme-transition-duration) var(--theme-transition-timing),
+            border-color var(--theme-transition-duration) var(--theme-transition-timing);
+    }
+    
+    // Form inputs require special treatment
+    input, select, textarea, .o_input, .btn {
+        transition: 
+            background-color var(--theme-transition-duration) var(--theme-transition-timing),
+            color var(--theme-transition-duration) var(--theme-transition-timing),
+            border-color var(--theme-transition-duration) var(--theme-transition-timing),
+            box-shadow calc(var(--theme-transition-duration) * 1.5) var(--theme-transition-timing);
+    }
+    
+    // Navbar and prominent UI elements (stagger slightly)
+    .o_main_navbar, .o_control_panel, .o_search_panel {
+        transition: 
+            background-color calc(var(--theme-transition-duration) * 0.8) var(--theme-transition-timing) calc(var(--theme-transition-duration) * 0.1),
+            color calc(var(--theme-transition-duration) * 0.8) var(--theme-transition-timing) calc(var(--theme-transition-duration) * 0.1),
+            border-color calc(var(--theme-transition-duration) * 0.8) var(--theme-transition-timing) calc(var(--theme-transition-duration) * 0.1);
+    }
+    
+    // Icons and SVG elements
+    svg, i.fa, i.oi, .o_image {
+        transition: 
+            fill var(--theme-transition-duration) var(--theme-transition-timing),
+            color var(--theme-transition-duration) var(--theme-transition-timing),
+            filter var(--theme-transition-duration) var(--theme-transition-timing);
+    }
+    
+    // Animation effects (don't transition these)
+    .o_loading, .o_notification, .animate__animated {
+        transition: none;
+    }
+    
+    // Text selection color
+    ::selection {
+        transition: background-color var(--theme-transition-duration) var(--theme-transition-timing);
+    }
+    
+    // Avoid transition flicker on first page load
+    &.no-transition, &.no-transition * {
+        transition: none !important;
+    }
+}

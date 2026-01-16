@@ -1,0 +1,313 @@
+/**
+ * Dark Mode styling for Kanban Controller
+ * Complements the main dark mode theme with Kanban-specific styles
+ */
+
+.o-theme-dark {
+    // Global Kanban variables (these need higher specificity)
+    --Kanban-background: var(--o-dark-bg-200) !important; 
+    --KanbanGroup-background: var(--o-dark-bg-200) !important;
+    --KanbanColumn__highlight-background: rgba(77, 122, 255, 0.15) !important;
+    --KanbanColumn__highlight-border: var(--o-dark-accent) !important;
+
+    // Dropdown menu styling
+    .o-dropdown--kanban-record-menu {
+        background-color: var(--o-dark-bg-300);
+        color: var(--o-dark-text-primary);
+        border-color: var(--border-color);
+
+        > div {
+            color: var(--o-dark-text-secondary);
+        }
+
+        // Dropdown menu with complex layout
+        .container {
+            .row {
+                color: var(--o-dark-text-primary);
+            }
+
+            div[class*="col-"] {
+                > .o_kanban_card_manage_title {
+                    color: var(--o-dark-text-secondary);
+                    border-bottom-color: var(--border-color);
+                }
+            }
+
+            .row.o_kanban_card_manage_settings {
+                border-top-color: var(--border-color);
+
+                div[class*="col-"] + div[class*="col-"] {
+                    border-left-color: var(--border-color);
+                }
+            }
+        }
+    }
+
+    // Kanban renderer - direct styling for better specificity
+    .o_kanban_renderer {
+        background-color: var(--o-dark-bg-200) !important;
+        --Kanban-background: var(--o-dark-bg-200) !important;
+
+        .o_kanban_record:not(.o_legacy_kanban_record) {
+            background-color: var(--o-dark-bg-300);
+            border-color: var(--border-color);
+            color: var(--o-dark-text-primary);
+
+            &:not(.o_kanban_ghost) {
+                border-color: var(--border-color);
+                background-color: var(--o-dark-bg-300);
+            }
+
+            // Handle record colors more elegantly in dark mode
+            @for $size from 2 through length($o-colors) {
+                &.o_kanban_color_#{$size - 1}::after {
+                    $-color: nth($o-colors, $size);
+                    // Make border colors more visible against dark backgrounds
+                    border-left: $border-width solid rgba($-color, 0.7);
+                    border-right: ($border-width * 2) solid $-color;
+                }
+            }
+
+            // Enhance hover effect in dark mode
+            &:hover {
+                box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+            }
+
+            // Footer styling
+            > footer, > main > footer {
+                border-top-color: var(--border-color);
+            }
+        }
+
+        // Quick create styling
+        .o_kanban_quick_create {
+            background-color: var(--o-dark-bg-300);
+            border-color: var(--border-color);
+            color: var(--o-dark-text-primary);
+        }
+
+        // Dragged item styling
+        .o_dragged {
+            background-color: var(--o-dark-bg-400) !important;
+            box-shadow: 0 5px 25px -10px rgba(black, 0.75) !important;
+        }
+
+        // Grouped kanban layout
+        &.o_kanban_grouped {
+            .o_kanban_group {
+                background-color: var(--o-dark-bg-200);
+
+                .o_kanban_header {
+                    background-color: var(--o-dark-bg-200);
+                    color: var(--o-dark-text-secondary);
+
+                    > .o_kanban_header_title {
+                        color: var(--o-dark-text-primary);
+
+                        .o_kanban_config {
+                            color: var(--o-dark-text-secondary);
+                            
+                            &:hover {
+                                color: var(--o-dark-text-primary);
+                            }
+                        }
+                    }
+
+                    .o-dropdown--kanban-config-menu {
+                        .dropdown-item {
+                            color: var(--o-dark-text-primary);
+                            
+                            &:hover {
+                                background-color: var(--o-dark-bg-400);
+                            }
+                        }
+                    }
+                }
+
+                &.o_kanban_hover {
+                    background-color: var(--KanbanColumn__highlight-background) !important;
+                    box-shadow: -1px 0px 0px 0px var(--KanbanColumn__highlight-border) inset,
+                        1px 0px 0px 0px var(--KanbanColumn__highlight-border) inset;
+                }
+            }
+
+            // Folded column styling
+            .o_kanban_group.o_column_folded {
+                background-color: var(--o-dark-bg-200);
+                
+                button.o_column_unfold {
+                    color: var(--o-dark-text-secondary);
+                    
+                    &:hover {
+                        color: var(--o-dark-text-primary);
+                    }
+                }
+                
+                .o_column_title {
+                    color: var(--o-dark-text-secondary);
+                }
+            }
+        }
+
+        // Ungrouped layout
+        &.o_kanban_ungrouped {
+            .o_kanban_record {
+                &.o_kanban_ghost {
+                    background-color: transparent !important;
+                    border: 1px dashed var(--o-dark-border-100);
+                }
+            }
+        }
+    }
+
+    // Mobile specific styles
+    .o_kanban_mobile .o_kanban_renderer .o_kanban_record {
+        background-color: var(--o-dark-bg-300);
+        
+        div.label {
+            color: var(--o-dark-text-secondary);
+        }
+    }
+
+    // Small column kanban
+    .o_kanban_small_column .o_kanban_renderer.o_kanban_grouped {
+        .o_kanban_group {
+            background-color: var(--o-dark-bg-200);
+        }
+    }
+
+    // Direct styling for kanban view itself
+    .o_kanban_view {
+        --Kanban-background: var(--o-dark-bg-200) !important;
+        background-color: var(--o-dark-bg-200) !important;
+    }
+
+    // Sample data styling
+    .o_kanban_view .o_view_sample_data {
+        opacity: 0.5;
+        
+        .o_kanban_record,
+        .o_kanban_load_more,
+        .o_kanban_counter {
+            border-color: var(--o-dark-border-100);
+            background-color: var(--o-dark-bg-400);
+        }
+    }
+
+    // Enhance kanban card colors for better visibility in dark mode
+    .o_kanban_card_content {
+        color: var(--o-dark-text-primary);
+    }
+    
+    .o_kanban_card_header_title {
+        color: var(--o-dark-text-primary);
+    }
+    
+    .o_kanban_counter {
+        background-color: var(--o-dark-bg-300);
+        border-color: var(--border-color);
+        
+        .o_kanban_counter_progress {
+            background-color: var(--o-dark-bg-400);
+        }
+    }
+    
+    // Custom styling for kanban view buttons
+    .o_kanban_button {
+        background-color: var(--o-dark-bg-400);
+        color: var(--o-dark-text-primary);
+        border-color: var(--border-color);
+        
+        &:hover {
+            background-color: var(--o-dark-bg-500);
+        }
+    }
+    
+    // Custom styling for kanban status indicators
+    .o_status {
+        &.o_status_green {
+            background-color: #28a745;
+        }
+        
+        &.o_status_red {
+            background-color: #dc3545;
+        }
+        
+        &.o_status_yellow {
+            background-color: #ffc107;
+        }
+    }
+    
+    // Show more button in kanban view
+    .o_kanban_load_more {
+        background-color: var(--o-dark-bg-300);
+        color: var(--o-dark-text-primary);
+        border-color: var(--border-color);
+        
+        &:hover {
+            background-color: var(--o-dark-bg-400);
+        }
+    }
+    
+    // Image handling in kanban cards
+    .o_kanban_image, .o_kanban_image_fill {
+        opacity: 0.9; // Slightly reduce opacity for better integration with dark mode
+        
+        img {
+            border-color: var(--border-color);
+        }
+    }
+    
+    // Cover image on kanban cards
+    .o_kanban_cover {
+        background-color: var(--o-dark-bg-300);
+        border-color: var(--border-color);
+        
+        &.o_kanban_cover_image {
+            opacity: 0.9; // Slightly reduce opacity for better integration with dark mode
+        }
+    }
+    
+    // Kanban quick create styling
+    .o_kanban_quick_create {
+        .o_form_view {
+            background-color: transparent;
+        }
+        
+        .o_form_buttons {
+            background-color: var(--o-dark-bg-200);
+            border-top-color: var(--border-color);
+        }
+    }
+    
+    // Kanban group header buttons
+    .o_kanban_header_buttons {
+        .o_kanban_toggle_fold, .o_column_archive, .o_column_delete {
+            color: var(--o-dark-text-secondary);
+            
+            &:hover {
+                color: var(--o-dark-text-primary);
+            }
+        }
+    }
+    
+    // Kanban progressbar
+    .o_kanban_progressbar {
+        background-color: var(--o-dark-bg-400);
+        
+        .o_progressbar_value {
+            background-color: var(--o-dark-accent);
+        }
+    }
+    
+    // Priority stars
+    .o_priority {
+        .o_priority_star {
+            color: var(--o-dark-text-secondary);
+            
+            &.fa-star {
+                color: #f1c40f; // Gold color for filled stars
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template t-name="web.theme" id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <!-- JS Files -->
+            <script type="text/javascript" src="/web/static/src/core/theme/theme.js"/>
+            <script type="text/javascript" src="/web/static/src/core/theme/theme_toggle.js"/>
+            <script type="text/javascript" src="/web/static/src/core/theme/theme_menu_item.js"/>
+            <script type="text/javascript" src="/web/static/src/core/theme/theme_init.js"/>
+            
+            <!-- CSS Files -->
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_transitions.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_dark.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_toggle.scss"/>
+        </xpath>
+    </template>
+</odoo>

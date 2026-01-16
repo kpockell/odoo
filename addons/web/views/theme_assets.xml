@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template name="web.theme_assets" id="web_theme_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <!-- Theme JS files -->
+            <script type="text/javascript" src="/web/static/src/core/theme/theme.js"/>
+            <script type="text/javascript" src="/web/static/src/core/theme/theme_menu_item.js"/>
+            <script type="text/javascript" src="/web/static/src/core/theme/theme_toggle.js"/>
+            
+            <!-- Theme CSS files -->
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_transitions.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_dark.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/kanban_dark.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_modules.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_toggle.scss"/>
+            <!-- Final overrides with highest specificity -->
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/core/theme/theme_overrides.scss"/>
+        </xpath>
+    </template>
+</odoo>

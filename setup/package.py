@@ -31,8 +31,8 @@ version_info = ...
 nt_service_name = ...
 exec(open(os.path.join(ROOTDIR, 'odoo', 'release.py'), 'rb').read())
 VERSION = version.split('-')[0].replace('saas~', '')
-GPGPASSPHRASE = os.getenv('GPGPASSPHRASE')
-GPGID = os.getenv('GPGID')
+GPGPASSPHRASE = os.getenv('GPGPASSPHRASE') or ''
+GPGID = os.getenv('GPGID') or ''
 DOCKERVERSION = VERSION.replace('+', '')
 INSTALL_TIMEOUT = 600
 

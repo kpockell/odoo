@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="web.ThemeToggle" owl="1">
+        <div class="o_theme_toggle" t-on-click="toggleDarkMode">
+            <i t-if="state.isDarkMode" class="fa fa-sun-o" title="Switch to Light Mode"></i>
+            <i t-else="1" class="fa fa-moon-o" title="Switch to Dark Mode"></i>
+        </div>
+    </t>
+</templates>

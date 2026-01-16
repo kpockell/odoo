@@ -1,5 +1,15 @@
 :root {
   --o-webclient-color-scheme:#{$o-webclient-color-scheme};
+  --o-webclient-background-color: #{$o-webclient-background-color};
+  --o-main-text-color: #{$o-main-text-color};
+  --o-main-color-muted: #{$o-main-color-muted};
+  --o-view-background-color: #{$o-view-background-color};
+
+  // Theme-related variables that can be overridden by dark mode
+  --o-theme-background-color: var(--o-webclient-background-color);
+  --o-theme-text-color: var(--o-main-text-color);
+  --o-theme-text-muted: var(--o-main-color-muted);
+  --o-theme-view-background: var(--o-view-background-color);
 
   font-size: $o-root-font-size;
 }
@@ -23,8 +33,17 @@ tfoot {
 .o_web_client {
   direction: ltr;
   position: relative; // normally useless but required by bootstrap-datepicker
-  background-color: $o-webclient-background-color;
+  background-color: var(--o-theme-background-color, $o-webclient-background-color);
   color-scheme: $o-webclient-color-scheme;
+
+  // Theme state indicators for CSS selectors
+  &.o-theme-default {
+    --o-theme-state: "light";
+  }
+
+  .o-theme-dark & {
+    --o-theme-state: "dark";
+  }
 }
 
 // ------------------------------------------------------------------
