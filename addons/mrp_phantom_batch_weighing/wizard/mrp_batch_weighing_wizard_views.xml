@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Wizard Form View -->
+    <record id="view_mrp_batch_weighing_wizard_form" model="ir.ui.view">
+        <field name="name">mrp.batch.weighing.wizard.form</field>
+        <field name="model">mrp.batch.weighing.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Batch Weighing">
+                <group>
+                    <group>
+                        <field name="production_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="only_phantom_components"/>
+                        <field name="show_all_components"/>
+                    </group>
+                </group>
+                <separator string="Components to Weigh"/>
+                <field name="weighing_line_ids">
+<list editable="top" decoration-success="remaining_qty &lt;= 0" decoration-warning="remaining_qty &gt; 0 and actual_weight &gt; 0">
+                        <field name="product_id" column_invisible="0" readonly="1" force_save="1"/>
+                        <field name="to_consume_qty" readonly="1" string="To Consume"/>
+                        <field name="already_weighed" readonly="1" optional="show"/>
+                        <field name="actual_weight" string="Weight" readonly="remaining_qty &lt;= 0"/>
+                        <field name="remaining_qty" readonly="1" decoration-bf="1" decoration-danger="remaining_qty &lt; 0" decoration-success="remaining_qty == 0"/>
+                        <field name="product_uom_id" readonly="1" groups="uom.group_uom"/>
+                        <field name="batch_number" optional="show"/>
+                        <field name="lot_id" optional="show"/>
+                        <field name="notes" optional="hide"/>
+                        <field name="stock_move_id" column_invisible="1"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="action_validate" string="Save &amp; Close" type="object" class="btn-primary" data-hotkey="v"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_mrp_batch_weighing_wizard" model="ir.actions.act_window">
+        <field name="name">Batch Weighing</field>
+        <field name="res_model">mrp.batch.weighing.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_mrp_batch_weighing_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

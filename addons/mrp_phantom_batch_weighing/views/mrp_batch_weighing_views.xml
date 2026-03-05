@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_mrp_batch_weighing_tree" model="ir.ui.view">
+        <field name="name">mrp.batch.weighing.tree</field>
+        <field name="model">mrp.batch.weighing</field>
+        <field name="arch" type="xml">
+            <list string="Batch Weighings" decoration-danger="variance_percent &gt; 10 or variance_percent &lt; -10" decoration-warning="variance_percent &gt; 5 or variance_percent &lt; -5">
+                <field name="weighing_date"/>
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="batch_number"/>
+                <field name="lot_id"/>
+                <field name="theoretical_qty"/>
+                <field name="actual_weight"/>
+                <field name="variance" decoration-danger="variance &gt; 0" decoration-info="variance &lt; 0"/>
+                <field name="variance_percent" widget="percentage"/>
+                <field name="product_uom_id" groups="uom.group_uom"/>
+                <field name="user_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_mrp_batch_weighing_form" model="ir.ui.view">
+        <field name="name">mrp.batch.weighing.form</field>
+        <field name="model">mrp.batch.weighing</field>
+        <field name="arch" type="xml">
+            <form string="Batch Weighing">
+                <sheet>
+                    <group>
+                        <group name="main_info">
+                            <field name="production_id"/>
+                            <field name="product_id"/>
+                            <field name="bom_line_id"/>
+                            <field name="product_uom_id" groups="uom.group_uom"/>
+                        </group>
+                        <group name="weighing_info">
+                            <field name="batch_number"/>
+                            <field name="lot_id"/>
+                            <field name="weighing_date"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group name="quantities">
+                            <field name="theoretical_qty"/>
+                            <field name="actual_weight"/>
+                            <field name="variance" decoration-danger="variance != 0"/>
+                            <field name="variance_percent" widget="percentage"/>
+                        </group>
+                        <group name="traceability">
+                            <field name="stock_move_id"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" placeholder="Add notes or observations about this weighing..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_mrp_batch_weighing_search" model="ir.ui.view">
+        <field name="name">mrp.batch.weighing.search</field>
+        <field name="model">mrp.batch.weighing</field>
+        <field name="arch" type="xml">
+            <search string="Search Batch Weighings">
+                <field name="production_id"/>
+                <field name="product_id"/>
+                <field name="batch_number"/>
+                <field name="lot_id"/>
+                <field name="user_id"/>
+                <separator/>
+                <filter string="High Variance" name="high_variance" domain="['|', ('variance_percent', '&gt;', 10), ('variance_percent', '&lt;', -10)]"/>
+                <filter string="Medium Variance" name="medium_variance" domain="['|', '&amp;', ('variance_percent', '&gt;', 5), ('variance_percent', '&lt;=', 10), '&amp;', ('variance_percent', '&lt;', -5), ('variance_percent', '&gt;=', -10)]"/>
+                <separator/>
+                <filter string="Today" name="today" domain="[('weighing_date', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="This Week" name="this_week" domain="[('weighing_date', '&gt;=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Manufacturing Order" name="group_production" context="{'group_by': 'production_id'}"/>
+                    <filter string="Product" name="group_product" context="{'group_by': 'product_id'}"/>
+                    <filter string="Batch" name="group_batch" context="{'group_by': 'batch_number'}"/>
+                    <filter string="Weighed By" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Date" name="group_date" context="{'group_by': 'weighing_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_mrp_batch_weighing" model="ir.actions.act_window">
+        <field name="name">Batch Weighings</field>
+        <field name="res_model">mrp.batch.weighing</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_mrp_batch_weighing_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No batch weighings recorded yet
+            </p>
+            <p>
+                Batch weighings are created from Manufacturing Orders using the Batch Weighing wizard.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item (under Manufacturing > Operations) -->
+    <menuitem id="menu_mrp_batch_weighing"
+              name="Batch Weighings"
+              parent="mrp.menu_mrp_manufacturing"
+              action="action_mrp_batch_weighing"
+              sequence="50"/>
+
+</odoo>

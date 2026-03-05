@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Manufacturing Order Form View -->
+    <record id="view_mrp_production_form_inherit_batch_weighing" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.batch.weighing</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add Batch Weighing button in header -->
+            <xpath expr="//header/button[@name='button_mark_done']" position="before">
+                <button name="action_open_batch_weighing" 
+                        type="object" 
+                        string="Batch Weighing" 
+                        class="oe_highlight"
+                        icon="fa-balance-scale"
+                        invisible="state not in ['confirmed', 'progress', 'to_close']"/>
+            </xpath>
+
+            <!-- Add smart button for weighing count -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_batch_weighings"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-balance-scale"
+                        invisible="batch_weighing_count == 0">
+                    <field name="batch_weighing_count" widget="statinfo" string="Weighings"/>
+                </button>
+            </xpath>
+
+            <!-- Add Batch Weighings notebook page -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Batch Weighings" name="batch_weighings">
+                    <field name="batch_weighing_ids">
+                        <list decoration-danger="variance_percent &gt; 10 or variance_percent &lt; -10" 
+                              decoration-warning="variance_percent &gt; 5 or variance_percent &lt; -5">
+                            <field name="weighing_date"/>
+                            <field name="product_id"/>
+                            <field name="batch_number"/>
+                            <field name="lot_id"/>
+                            <field name="theoretical_qty"/>
+                            <field name="actual_weight"/>
+                            <field name="variance" decoration-danger="variance != 0"/>
+                            <field name="variance_percent" widget="percentage"/>
+                            <field name="product_uom_id" groups="uom.group_uom"/>
+                            <field name="user_id"/>
+                        </list>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="product_id"/>
+                                    <field name="bom_line_id"/>
+                                    <field name="product_uom_id" groups="uom.group_uom"/>
+                                </group>
+                                <group>
+                                    <field name="batch_number"/>
+                                    <field name="lot_id"/>
+                                    <field name="weighing_date"/>
+                                    <field name="user_id"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="theoretical_qty"/>
+                                    <field name="actual_weight"/>
+                                    <field name="variance" decoration-danger="variance != 0"/>
+                                    <field name="variance_percent" widget="percentage"/>
+                                </group>
+                                <group>
+                                    <field name="stock_move_id"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="notes" placeholder="Add notes..."/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
