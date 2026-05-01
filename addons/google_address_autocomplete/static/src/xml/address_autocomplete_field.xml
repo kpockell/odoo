@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        Address autocomplete field widget.
+        Inherits web.CharField in "primary" mode (a new, independent template)
+        and replaces the plain <input> with an AutoComplete component whenever
+        the field is in edit mode.
+    -->
+    <t t-name="google_address_autocomplete.AddressAutocompleteField"
+       t-inherit="web.CharField"
+       t-inherit-mode="primary">
+
+        <!--
+            Insert a t-elif="true" *before* the existing t-else="" block so that:
+              1. t-if="props.readonly"  → static <span> (unchanged)
+              2. t-elif="true"          → our AutoComplete widget
+              3. t-else=""              → unreachable, but keeps the original
+                                          markup intact for future reference
+        -->
+        <xpath expr="//t[@t-else='']" position="before">
+            <t t-elif="true">
+                <AutoComplete
+                    value="props.record.data[props.name] || ''"
+                    sources="sources"
+                    onSelect.bind="onSelect"
+                    input="inputRef"
+                    placeholder="placeholder || ''"
+                />
+            </t>
+        </xpath>
+    </t>
+
+    <!-- Dropdown item template for a single address suggestion -->
+    <t t-name="google_address_autocomplete.AddressOption">
+        <span t-esc="option.description"/>
+    </t>
+
+</templates>

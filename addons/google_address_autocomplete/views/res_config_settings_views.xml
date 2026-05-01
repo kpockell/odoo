@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.google.address.autocomplete</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='general_settings']" position="inside">
+                <block title="Address Autocomplete" name="google_address_autocomplete_block">
+                    <setting
+                        id="google_places_api_key_setting"
+                        string="Google Places API Key"
+                        help="API key used to autocomplete addresses on partner forms. Requires the Places API to be enabled in your Google Cloud project. Leave empty to reuse the key from Partner Geolocation settings if that module is installed."
+                    >
+                        <field name="google_places_api_key" password="False"/>
+                        <div class="text-muted mt-1">
+                            <a href="https://developers.google.com/maps/documentation/places/web-service/get-api-key" target="_blank">
+                                How to obtain a key ↗
+                            </a>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

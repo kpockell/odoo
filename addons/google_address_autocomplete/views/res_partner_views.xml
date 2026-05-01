@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main partner form (customer / vendor) -->
+    <record id="view_partner_form_google_autocomplete" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.google.address.autocomplete</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Place autocomplete on the company name field -->
+            <xpath expr="//field[@name='name'][@id='company']" position="attributes">
+                <attribute name="widget">address_autocomplete</attribute>
+            </xpath>
+            <!-- And on the individual name field -->
+            <xpath expr="//field[@name='name'][@id='individual']" position="attributes">
+                <attribute name="widget">address_autocomplete</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Address-only form used for contact addresses and embedded dialogs -->
+    <record id="view_partner_address_form_google_autocomplete" model="ir.ui.view">
+        <field name="name">res.partner.form.address.inherit.google.address.autocomplete</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_address_form"/>
+        <field name="arch" type="xml">
+            <field name="street" position="attributes">
+                <attribute name="widget">address_autocomplete</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
