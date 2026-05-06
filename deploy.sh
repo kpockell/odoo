@@ -8,10 +8,19 @@
 set -euo pipefail
 
 ODOO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ODOO_CONF="/etc/odoo.conf"
+ODOO_CONF=""
 VENV="${ODOO_DIR}/.venv"
 BRANCH="ElixirSauceCo"
 SERVICE="odoo"
+
+if [ -r "/etc/odoo.conf" ]; then
+    ODOO_CONF="/etc/odoo.conf"
+elif [ -r "${ODOO_DIR}/odoo.conf" ]; then
+    ODOO_CONF="${ODOO_DIR}/odoo.conf"
+else
+    echo "ERROR: No readable Odoo config found at /etc/odoo.conf or ${ODOO_DIR}/odoo.conf" >&2
+    exit 2
+fi
 
 echo "==> Deploying branch: ${BRANCH}"
 
