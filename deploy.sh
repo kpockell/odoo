@@ -8,7 +8,7 @@
 set -euo pipefail
 
 ODOO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ODOO_CONF="${ODOO_DIR}/odoo.conf"
+ODOO_CONF="/etc/odoo.conf"
 VENV="${ODOO_DIR}/.venv"
 BRANCH="ElixirSauceCo"
 SERVICE="odoo"
@@ -23,9 +23,10 @@ git_safe() {
 
 # Pull latest code
 cd "${ODOO_DIR}"
-git_safe fetch origin
+# Fast path: fetch only the target branch tip (no tags/full history walk).
+git_safe fetch --no-tags --prune --depth=1 origin "${BRANCH}"
 git_safe checkout "${BRANCH}"
-git_safe reset --hard "origin/${BRANCH}"
+git_safe reset --hard FETCH_HEAD
 
 # Update Python dependencies if requirements changed
 if git_safe diff --name-only HEAD@{1} HEAD 2>/dev/null | grep -q "requirements.txt"; then
