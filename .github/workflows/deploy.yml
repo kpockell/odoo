@@ -19,4 +19,5 @@ jobs:
           key: ${{ secrets.PROD_SSH_KEY }}
           port: ${{ secrets.PROD_SSH_PORT || 22 }}
           script: |
+            git config --global --add safe.directory /opt/odoo
             bash /opt/odoo/deploy.sh
