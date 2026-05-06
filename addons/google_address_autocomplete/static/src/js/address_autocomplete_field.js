@@ -111,6 +111,9 @@ export class AddressAutocompleteField extends CharField {
         // Only include non-empty values so we never blank out a field the
         // user has already filled in manually.
         // Always write to 'street' regardless of which field the widget is on.
+        if (details.name) {
+            update.name = details.name;
+        }
         if (details.street) {
             update.street = details.street;
         }

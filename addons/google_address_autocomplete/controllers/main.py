@@ -133,7 +133,7 @@ class GoogleAddressAutocomplete(http.Controller):
 
         params = {
             'place_id': place_id,
-            'fields': 'address_components',
+            'fields': 'address_components,name',
             'key': api_key,
         }
         if session_token:
@@ -147,8 +147,10 @@ class GoogleAddressAutocomplete(http.Controller):
             _logger.exception('Google Places details request failed')
             return {'error': 'request_failed'}
 
-        components = data.get('result', {}).get('address_components', [])
+        result = data.get('result', {})
+        components = result.get('address_components', [])
         parsed = self._parse_address_components(components)
+        parsed['name'] = result.get('name', '')
         return self._resolve_odoo_fields(parsed, request.env)
 
     # ------------------------------------------------------------------
@@ -206,6 +208,7 @@ class GoogleAddressAutocomplete(http.Controller):
                 state_id = [state.id, state.name]
 
         return {
+            'name': parsed.get('name', ''),
             'street': parsed.get('street', ''),
             'city': parsed.get('city', ''),
             'zip': parsed.get('zip', ''),
