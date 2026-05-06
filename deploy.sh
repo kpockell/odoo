@@ -15,14 +15,20 @@ SERVICE="odoo"
 
 echo "==> Deploying branch: ${BRANCH}"
 
+# Git 2.35+ blocks operations in repos with differing ownership unless
+# explicitly trusted. In CI/remote deploy contexts this is expected.
+git_safe() {
+    git -c safe.directory="${ODOO_DIR}" "$@"
+}
+
 # Pull latest code
 cd "${ODOO_DIR}"
-git fetch origin
-git checkout "${BRANCH}"
-git reset --hard "origin/${BRANCH}"
+git_safe fetch origin
+git_safe checkout "${BRANCH}"
+git_safe reset --hard "origin/${BRANCH}"
 
 # Update Python dependencies if requirements changed
-if git diff --name-only HEAD@{1} HEAD 2>/dev/null | grep -q "requirements.txt"; then
+if git_safe diff --name-only HEAD@{1} HEAD 2>/dev/null | grep -q "requirements.txt"; then
     echo "==> requirements.txt changed — updating packages"
     "${VENV}/bin/pip" install -q -r "${ODOO_DIR}/requirements.txt"
 fi
