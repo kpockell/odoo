@@ -48,6 +48,7 @@ echo "==> Updating Odoo modules"
 "${VENV}/bin/python" "${ODOO_DIR}/odoo-bin" \
     -c "${ODOO_CONF}" \
     -u google_address_autocomplete \
+    -i market_sales_tracker \
     --stop-after-init \
     --no-http
 
