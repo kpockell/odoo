@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_market_location_list" model="ir.ui.view">
+        <field name="name">market.location.view.list</field>
+        <field name="model">market.location</field>
+        <field name="arch" type="xml">
+            <list string="Markets">
+                <field name="name"/>
+                <field name="city"/>
+                <field name="state"/>
+                <field name="organizer_name"/>
+                <field name="organizer_email"/>
+                <field name="booth_fee_default"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_market_location_form" model="ir.ui.view">
+        <field name="name">market.location.view.form</field>
+        <field name="model">market.location</field>
+        <field name="arch" type="xml">
+            <form string="Market">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="city"/>
+                            <field name="state"/>
+                            <field name="address"/>
+                        </group>
+                        <group>
+                            <field name="organizer_name"/>
+                            <field name="organizer_email"/>
+                            <field name="booth_fee_default"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notes" placeholder="Market notes..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_market_location_search" model="ir.ui.view">
+        <field name="name">market.location.view.search</field>
+        <field name="model">market.location</field>
+        <field name="arch" type="xml">
+            <search string="Markets">
+                <field name="name"/>
+                <field name="city"/>
+                <field name="state"/>
+                <field name="organizer_name"/>
+                <filter string="Active" name="active" domain="[('active', '=', True)]"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="City" name="group_by_city" context="{'group_by': 'city'}"/>
+                    <filter string="State" name="group_by_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_market_location" model="ir.actions.act_window">
+        <field name="name">Markets</field>
+        <field name="res_model">market.location</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_market_location_search"/>
+    </record>
+</odoo>

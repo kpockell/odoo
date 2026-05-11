@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_market_sales_root"
+        name="Market Sales"
+        sequence="60"
+    />
+
+    <menuitem
+        id="menu_market_weekly_sales"
+        name="Weekly Sales"
+        parent="menu_market_sales_root"
+        action="action_market_weekly_sale"
+        sequence="10"
+    />
+
+    <menuitem
+        id="menu_market_locations"
+        name="Markets"
+        parent="menu_market_sales_root"
+        action="action_market_location"
+        sequence="20"
+    />
+
+    <menuitem
+        id="menu_market_reporting"
+        name="Reporting"
+        parent="menu_market_sales_root"
+        action="action_market_sales_reporting"
+        sequence="30"
+    />
+</odoo>
